@@ -173,6 +173,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'ESC' })
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<leader>e', '<cmd>Ex<cr>', { desc = 'Open [E]xplorer' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
+vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 
 vim.keymap.set('n', ']e', ':move .+1<cr>', { desc = 'Move Line Below' })
 vim.keymap.set('n', '[e', ':move .-2<cr>', { desc = 'Move Line Above' })
@@ -972,6 +974,9 @@ require('lazy').setup({
     config = function()
       require('textcase').setup {}
       require('telescope').load_extension 'textcase'
+
+      vim.keymap.set('n', '<leader>lc', '<cmd>TextCaseOpenTelescope<CR>', { desc = '[L]SP Variable [C]ase Change' })
+      vim.keymap.set('v', '<leader>lc', '<cmd>TextCaseOpenTelescope<CR>', { desc = '[L]SP Variable [C]ase Change' })
     end,
     event = 'VeryLazy',
   },
@@ -991,11 +996,26 @@ require('lazy').setup({
   {
     'Wansmer/treesj',
     keys = {},
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    event = 'BufEnter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
     config = function()
       require('treesj').setup {
         use_default_keymaps = false,
       }
+
+      vim.keymap.set('n', '<leader>ls', function()
+        require('treesj').split()
+      end, {
+        desc = '[L]SP [S]plit Code',
+      })
+
+      vim.keymap.set('n', '<leader>lj', function()
+        require('treesj').join()
+      end, {
+        desc = '[L]SP [J]oin Code',
+      })
     end,
   },
   {
