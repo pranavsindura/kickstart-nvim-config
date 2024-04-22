@@ -206,6 +206,7 @@ vim.keymap.set('i', '<C-k>', '<UP>')
 vim.keymap.set('i', '<C-h>', '<LEFT>')
 vim.keymap.set('i', '<C-l>', '<RIGHT>')
 vim.keymap.set('i', '<C-;>', '<BS>')
+vim.keymap.set('i', '<C-y>', '<CR>')
 
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
@@ -914,7 +915,6 @@ require('lazy').setup({
       -- set use_icons to true if you have a Nerd Font
       statusline.setup {
         use_icons = vim.g.have_nerd_font,
-        content = {},
       }
 
       -- You can configure sections in the statusline by overriding their
@@ -1117,9 +1117,14 @@ require('lazy').setup({
   },
   {
     'stevearc/oil.nvim',
-    event = 'VeryLazy',
+    event = 'VimEnter',
     config = function()
-      require('oil').setup {}
+      require('oil').setup {
+        keymaps = {
+          ['l'] = 'actions.select',
+          ['h'] = 'actions.parent',
+        },
+      }
       vim.keymap.set('n', '<leader>e', '<cmd>Oil --float<cr>', { desc = 'Open [E]xplorer' })
     end,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
