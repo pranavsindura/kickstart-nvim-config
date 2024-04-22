@@ -1120,7 +1120,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     config = function()
       require('oil').setup {}
-      vim.keymap.set('n', '<leader>e', '<cmd>Oil<cr>', { desc = 'Open [E]xplorer' })
+      vim.keymap.set('n', '<leader>e', '<cmd>Oil --float<cr>', { desc = 'Open [E]xplorer' })
     end,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
