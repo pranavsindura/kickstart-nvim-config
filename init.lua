@@ -174,6 +174,12 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<leader>e', '<cmd>Ex<cr>', { desc = 'Open [E]xplorer' })
 
+vim.keymap.set('n', ']e', ':move .+1<cr>', { desc = 'Move Line Below' })
+vim.keymap.set('n', '[e', ':move .-2<cr>', { desc = 'Move Line Above' })
+
+vim.keymap.set('n', ']<space>', 'm`o<esc>``', { desc = 'Put Blank line Below' })
+vim.keymap.set('n', '[<space>', 'm`O<esc>``', { desc = 'Put Blank line Above' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -198,6 +204,7 @@ vim.keymap.set('i', '<C-j>', '<DOWN>')
 vim.keymap.set('i', '<C-k>', '<UP>')
 vim.keymap.set('i', '<C-h>', '<LEFT>')
 vim.keymap.set('i', '<C-l>', '<RIGHT>')
+vim.keymap.set('i', '<C-;>', '<BS>')
 
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
@@ -345,20 +352,20 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').register {
-        -- ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+        ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
         -- ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         -- ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
         -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it Hunk', _ = 'which_key_ignore' },
+        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
         ['<leader>S'] = { name = '[S]ession', _ = 'which_key_ignore' },
       }
 
       -- visual mode
       require('which-key').register({
-        ['<leader>g'] = { '[G]it Hunk' },
+        ['<leader>h'] = { 'Git [H]unk' },
       }, { mode = 'v' })
     end,
   },
@@ -1050,6 +1057,40 @@ require('lazy').setup({
     config = function()
       require('kanagawa').setup {}
       vim.cmd.colorscheme 'kanagawa'
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    event = 'VeryLazy',
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup {}
+
+      vim.keymap.set('n', '<leader>fx', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+        vim.cmd.norm '$ze'
+      end, { desc = '[F]ind [X]Harpoon marks' })
+
+      vim.keymap.set('n', ']x', function()
+        harpoon:list():next()
+      end, {
+        desc = 'Next Harpoon Mark',
+      })
+
+      vim.keymap.set('n', '[x', function()
+        harpoon:list():prev()
+      end, {
+        desc = 'Prev Harpoon Mark',
+      })
+
+      vim.keymap.set('n', '<leader>bx', function()
+        harpoon:list():add()
+        print 'Added file to Harpoon'
+      end, {
+        desc = 'Next Harpoon Mark',
+      })
     end,
   },
 
