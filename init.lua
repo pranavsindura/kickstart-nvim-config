@@ -172,7 +172,6 @@ vim.opt.diffopt = 'internal,filler,closeoff,linematch:60,iwhite,vertical,indent-
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'ESC' })
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
-vim.keymap.set('n', '<leader>e', '<cmd>Ex<cr>', { desc = 'Open [E]xplorer' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 
@@ -432,7 +431,7 @@ require('lazy').setup({
         defaults = {
           mappings = {
             i = {
-              -- ['<c-enter>'] = 'to_fuzzy_refine',
+              ['<c-enter>'] = 'to_fuzzy_refine',
               ['<C-j>'] = 'move_selection_next',
               ['<C-k>'] = 'move_selection_previous',
             },
@@ -656,7 +655,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
 
         lua_ls = {
@@ -738,6 +737,8 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -868,25 +869,23 @@ require('lazy').setup({
       }
     end,
   },
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    lazy = false,
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'tokyonight-night'
 
-  -- { -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is.
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   init = function()
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     vim.cmd.colorscheme 'tokyonight-night'
-  --
-  --     -- You can configure highlights by doing something like:
-  --     vim.cmd.hi 'Comment gui=none'
-  --   end,
-  -- },
-
+      -- You can configure highlights by doing something like:
+      vim.cmd.hi 'Comment gui=none'
+    end,
+  },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -913,7 +912,10 @@ require('lazy').setup({
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup {
+        use_icons = vim.g.have_nerd_font,
+        content = {},
+      }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
@@ -1071,14 +1073,14 @@ require('lazy').setup({
   --     require('bamboo').load()
   --   end,
   -- },
-  {
-    'rebelot/kanagawa.nvim',
-    lazy = false,
-    config = function()
-      require('kanagawa').setup {}
-      vim.cmd.colorscheme 'kanagawa'
-    end,
-  },
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('kanagawa').setup {}
+  --     vim.cmd.colorscheme 'kanagawa'
+  --   end,
+  -- },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -1112,6 +1114,15 @@ require('lazy').setup({
         desc = 'Next Harpoon Mark',
       })
     end,
+  },
+  {
+    'stevearc/oil.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('oil').setup {}
+      vim.keymap.set('n', '<leader>e', '<cmd>Oil<cr>', { desc = 'Open [E]xplorer' })
+    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
