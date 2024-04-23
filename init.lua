@@ -175,9 +175,6 @@ vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 
-vim.keymap.set('n', ']e', ':move .+1<cr>', { desc = 'Move Line Below' })
-vim.keymap.set('n', '[e', ':move .-2<cr>', { desc = 'Move Line Above' })
-
 vim.keymap.set('n', ']<space>', 'm`o<esc>``', { desc = 'Put Blank line Below' })
 vim.keymap.set('n', '[<space>', 'm`O<esc>``', { desc = 'Put Blank line Above' })
 
@@ -900,6 +897,18 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      local miniStarter = require 'mini.starter'
+      miniStarter.setup {
+        items = {
+          miniStarter.sections.sessions(5, true),
+          miniStarter.sections.recent_files(5, true, false),
+          miniStarter.sections.builtin_actions(),
+        },
+      }
+
+      local miniSessions = require 'mini.sessions'
+      miniSessions.setup {}
+
       -- Better Around/Inside textobjects
       --
       -- Examples:
@@ -913,11 +922,18 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {}
+
       require('mini.files').setup()
       vim.keymap.set('n', '<leader>e', function()
         local miniFiles = require 'mini.files'
-        miniFiles.open(vim.api.nvim_buf_get_name(0))
+        local dirPath = ''
+        if vim.fn.expand '%:t' == 'Starter' then
+          dirPath = vim.fn.expand '%:h'
+        else
+          dirPath = vim.api.nvim_buf_get_name(0)
+        end
+        miniFiles.open(dirPath)
       end, { desc = 'Open [E]xplorer' })
 
       -- Simple and easy statusline.
@@ -978,6 +994,55 @@ require('lazy').setup({
         end
       end, { desc = '[C]lose All Buffers' })
 
+      require('mini.jump2d').setup {
+        allowed_windows = {
+          not_current = false,
+        },
+      }
+      vim.keymap.set('n', 's', function()
+        require('mini.jump2d').start()
+      end, {
+        desc = 'Fla[S]h Jump to word',
+      })
+
+      local miniMove = require 'mini.move'
+      miniMove.setup {
+        mappings = {
+          left = '',
+          right = '',
+          down = '',
+          up = '',
+          line_left = '',
+          line_right = '',
+          line_down = '',
+          line_up = '',
+        },
+      }
+      vim.keymap.set('n', ']e', function()
+        miniMove.move_line 'down'
+      end, { desc = 'Move Line Below' })
+      vim.keymap.set('n', '[e', function()
+        miniMove.move_line 'up'
+      end, { desc = 'Move Line Above' })
+
+      vim.keymap.set('v', ']e', function()
+        miniMove.move_selection 'down'
+      end, { desc = 'Move Line Below' })
+      vim.keymap.set('v', '[e', function()
+        miniMove.move_selection 'up'
+      end, { desc = 'Move Line Above' })
+
+      local miniSplitJoin = require 'mini.splitjoin'
+      miniSplitJoin.setup {
+        mappings = {
+          toggle = '',
+          split = 'gs',
+          join = 'gS',
+        },
+      }
+
+      require('mini.trailspace').setup {}
+
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -986,7 +1051,16 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'vim',
+        'vimdoc',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -997,6 +1071,9 @@ require('lazy').setup({
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+      autotag = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -1048,74 +1125,74 @@ require('lazy').setup({
   --     require('lsp_signature').setup()
   --   end,
   -- },
-  {
-    'Wansmer/treesj',
-    keys = {},
-    event = 'BufEnter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('treesj').setup {
-        use_default_keymaps = false,
-      }
-
-      vim.keymap.set('n', '<leader>ls', function()
-        require('treesj').split()
-      end, {
-        desc = '[L]SP [S]plit Code',
-      })
-
-      vim.keymap.set('n', '<leader>lj', function()
-        require('treesj').join()
-      end, {
-        desc = '[L]SP [J]oin Code',
-      })
-    end,
-  },
-  {
-    'folke/flash.nvim',
-    event = 'VeryLazy',
-    ---@type Flash.Config
-    opts = {},
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function()
-          require('flash').jump()
-        end,
-        desc = 'Flash',
-      },
-      -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      -- {
-      --   'r',
-      --   mode = 'o',
-      --   function()
-      --     require('flash').remote()
-      --   end,
-      --   desc = 'Remote Flash',
-      -- },
-      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
+  -- {
+  --   'Wansmer/treesj',
+  --   keys = {},
+  --   event = 'BufEnter',
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  --   config = function()
+  --     require('treesj').setup {
+  --       use_default_keymaps = false,
+  --     }
+  --
+  --     vim.keymap.set('n', '<leader>ls', function()
+  --       require('treesj').split()
+  --     end, {
+  --       desc = '[L]SP [S]plit Code',
+  --     })
+  --
+  --     vim.keymap.set('n', '<leader>lj', function()
+  --       require('treesj').join()
+  --     end, {
+  --       desc = '[L]SP [J]oin Code',
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   'folke/flash.nvim',
+  --   event = 'VeryLazy',
+  --   ---@type Flash.Config
+  --   opts = {},
+  --   keys = {
+  --     {
+  --       's',
+  --       mode = { 'n', 'x', 'o' },
+  --       function()
+  --         require('flash').jump()
+  --       end,
+  --       desc = 'Flash',
+  --     },
+  --     -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  --     -- {
+  --     --   'r',
+  --     --   mode = 'o',
+  --     --   function()
+  --     --     require('flash').remote()
+  --     --   end,
+  --     --   desc = 'Remote Flash',
+  --     -- },
+  --     -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  --     -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  --   },
+  -- },
   {
     'xiyaowong/transparent.nvim',
     lazy = false,
   },
-  {
-    'stevearc/resession.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('resession').setup {}
-      vim.keymap.set('n', '<leader>S.', function()
-        require('resession').load(vim.fn.getcwd(), { dir = 'dirsession', silence_errors = true })
-      end, {
-        desc = 'Load [S]ession of [.]Current Directory',
-      })
-    end,
-  },
+  -- {
+  --   'stevearc/resession.nvim',
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('resession').setup {}
+  --     vim.keymap.set('n', '<leader>S.', function()
+  --       require('resession').load(vim.fn.getcwd(), { dir = 'dirsession', silence_errors = true })
+  --     end, {
+  --       desc = 'Load [S]ession of [.]Current Directory',
+  --     })
+  --   end,
+  -- },
   -- {
   --   'ribru17/bamboo.nvim',
   --   lazy = false,
@@ -1134,40 +1211,40 @@ require('lazy').setup({
   --     vim.cmd.colorscheme 'kanagawa'
   --   end,
   -- },
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
-    event = 'VeryLazy',
-    config = function()
-      local harpoon = require 'harpoon'
-      harpoon:setup {}
-
-      vim.keymap.set('n', '<leader>fx', function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-        vim.cmd.norm '$ze'
-      end, { desc = '[F]ind [X]Harpoon marks' })
-
-      vim.keymap.set('n', ']x', function()
-        harpoon:list():next()
-      end, {
-        desc = 'Next Harpoon Mark',
-      })
-
-      vim.keymap.set('n', '[x', function()
-        harpoon:list():prev()
-      end, {
-        desc = 'Prev Harpoon Mark',
-      })
-
-      vim.keymap.set('n', '<leader>bx', function()
-        harpoon:list():add()
-        print 'Added file to Harpoon'
-      end, {
-        desc = 'Next Harpoon Mark',
-      })
-    end,
-  },
+  -- {
+  --   'ThePrimeagen/harpoon',
+  --   branch = 'harpoon2',
+  --   dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     local harpoon = require 'harpoon'
+  --     harpoon:setup {}
+  --
+  --     vim.keymap.set('n', '<leader>fx', function()
+  --       harpoon.ui:toggle_quick_menu(harpoon:list())
+  --       vim.cmd.norm '$ze'
+  --     end, { desc = '[F]ind [X]Harpoon marks' })
+  --
+  --     vim.keymap.set('n', ']x', function()
+  --       harpoon:list():next()
+  --     end, {
+  --       desc = 'Next Harpoon Mark',
+  --     })
+  --
+  --     vim.keymap.set('n', '[x', function()
+  --       harpoon:list():prev()
+  --     end, {
+  --       desc = 'Prev Harpoon Mark',
+  --     })
+  --
+  --     vim.keymap.set('n', '<leader>bx', function()
+  --       harpoon:list():add()
+  --       print 'Added file to Harpoon'
+  --     end, {
+  --       desc = 'Next Harpoon Mark',
+  --     })
+  --   end,
+  -- },
   {
     'stevearc/oil.nvim',
     event = 'VimEnter',
@@ -1181,6 +1258,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = 'Open [O]il' })
     end,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
