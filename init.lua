@@ -222,6 +222,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>tf', '<cmd>ToggleBufferFormatOnSave<cr>', { desc = '[T]oggle buffer [F]ormat on save' })
 vim.keymap.set('n', '<leader>tF', '<cmd>ToggleFormatOnSave<cr>', { desc = '[T]oggle global [F]ormat on save' })
 
+vim.keymap.set('n', '<leader>g', function()
+  os.execute('open -a kitty.app -n --args lazygit -p ' .. vim.fn.getcwd())
+end, { desc = 'Open Lazy[G]it' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -1113,139 +1117,32 @@ require('lazy').setup({
     end,
     event = 'VeryLazy',
   },
-  -- {
-  --   'kylechui/nvim-surround',
-  --   version = '*', -- Use for stability; omit to use `main` branch for the latest features
-  --   event = 'VeryLazy',
-  --   opts = {},
-  -- },
-  -- {
-  --   'ray-x/lsp_signature.nvim',
-  --   event = 'BufRead',
-  --   config = function()
-  --     require('lsp_signature').setup()
-  --   end,
-  -- },
-  -- {
-  --   'Wansmer/treesj',
-  --   keys = {},
-  --   event = 'BufEnter',
-  --   dependencies = {
-  --     'nvim-treesitter/nvim-treesitter',
-  --   },
-  --   config = function()
-  --     require('treesj').setup {
-  --       use_default_keymaps = false,
-  --     }
-  --
-  --     vim.keymap.set('n', '<leader>ls', function()
-  --       require('treesj').split()
-  --     end, {
-  --       desc = '[L]SP [S]plit Code',
-  --     })
-  --
-  --     vim.keymap.set('n', '<leader>lj', function()
-  --       require('treesj').join()
-  --     end, {
-  --       desc = '[L]SP [J]oin Code',
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'folke/flash.nvim',
-  --   event = 'VeryLazy',
-  --   ---@type Flash.Config
-  --   opts = {},
-  --   keys = {
-  --     {
-  --       's',
-  --       mode = { 'n', 'x', 'o' },
-  --       function()
-  --         require('flash').jump()
-  --       end,
-  --       desc = 'Flash',
-  --     },
-  --     -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-  --     -- {
-  --     --   'r',
-  --     --   mode = 'o',
-  --     --   function()
-  --     --     require('flash').remote()
-  --     --   end,
-  --     --   desc = 'Remote Flash',
-  --     -- },
-  --     -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-  --     -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  --   },
-  -- },
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'BufRead',
+    config = function()
+      require('lsp_signature').setup()
+    end,
+  },
   {
     'xiyaowong/transparent.nvim',
     lazy = false,
   },
-  -- {
-  --   'stevearc/resession.nvim',
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     require('resession').setup {}
-  --     vim.keymap.set('n', '<leader>S.', function()
-  --       require('resession').load(vim.fn.getcwd(), { dir = 'dirsession', silence_errors = true })
-  --     end, {
-  --       desc = 'Load [S]ession of [.]Current Directory',
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'ribru17/bamboo.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('bamboo').setup {
-  --       -- optional configuration here
-  --     }
-  --     require('bamboo').load()
-  --   end,
-  -- },
-  -- {
-  --   'rebelot/kanagawa.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('kanagawa').setup {}
-  --     vim.cmd.colorscheme 'kanagawa'
-  --   end,
-  -- },
-  -- {
-  --   'ThePrimeagen/harpoon',
-  --   branch = 'harpoon2',
-  --   dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     local harpoon = require 'harpoon'
-  --     harpoon:setup {}
-  --
-  --     vim.keymap.set('n', '<leader>fx', function()
-  --       harpoon.ui:toggle_quick_menu(harpoon:list())
-  --       vim.cmd.norm '$ze'
-  --     end, { desc = '[F]ind [X]Harpoon marks' })
-  --
-  --     vim.keymap.set('n', ']x', function()
-  --       harpoon:list():next()
-  --     end, {
-  --       desc = 'Next Harpoon Mark',
-  --     })
-  --
-  --     vim.keymap.set('n', '[x', function()
-  --       harpoon:list():prev()
-  --     end, {
-  --       desc = 'Prev Harpoon Mark',
-  --     })
-  --
-  --     vim.keymap.set('n', '<leader>bx', function()
-  --       harpoon:list():add()
-  --       print 'Added file to Harpoon'
-  --     end, {
-  --       desc = 'Next Harpoon Mark',
-  --     })
-  --   end,
-  -- },
+  {
+    'ribru17/bamboo.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('bamboo').setup {}
+      -- require('bamboo').load()
+    end,
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('kanagawa').setup {}
+    end,
+  },
   {
     'stevearc/oil.nvim',
     event = 'VimEnter',
