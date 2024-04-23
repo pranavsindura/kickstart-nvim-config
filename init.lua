@@ -206,7 +206,7 @@ vim.keymap.set('i', '<C-k>', '<UP>')
 vim.keymap.set('i', '<C-h>', '<LEFT>')
 vim.keymap.set('i', '<C-l>', '<RIGHT>')
 vim.keymap.set('i', '<C-;>', '<BS>')
-vim.keymap.set('i', '<C-y>', '<CR>')
+vim.keymap.set('i', '<C-g>', '<CR>')
 
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
@@ -465,6 +465,13 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+      vim.keymap.set('n', '<leader>fF', function()
+        builtin.find_files {
+          previewer = false,
+          hidden = true,
+          no_ignore = true,
+        }
+      end, { desc = '[F]ind all [F]iles' })
       vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
       vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = '[F]ind [C]urrent Word' })
       vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind [W]ord' })
@@ -907,6 +914,7 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.files').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -916,7 +924,7 @@ require('lazy').setup({
       local activeContent = function()
         local mode, mode_hl = statusline.section_mode { trunc_width = 800 }
         local git = statusline.section_git { trunc_width = 75 }
-        local filename = statusline.section_filename { trunc_width = 140 }
+        local filename = statusline.section_filename { trunc_width = 800 }
         local fileinfo = statusline.section_fileinfo { trunc_width = 120 }
         local search = statusline.section_searchcount { trunc_width = 75 }
 
@@ -951,7 +959,8 @@ require('lazy').setup({
 
       vim.keymap.set('n', 'L', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
       vim.keymap.set('n', 'H', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
-      vim.keymap.set('n', '<leader>bc', '<cmd>bd<cr>', { desc = '[B]uffer [C]lose' })
+      vim.keymap.set('n', '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose Buffer' })
+      vim.keymap.set('n', '<leader>C', '<cmd>%bd|e#<cr>', { desc = '[C]lose All Buffers' })
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
