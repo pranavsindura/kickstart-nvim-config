@@ -248,15 +248,14 @@ end, {
   desc = 'Toggle autoformat-on-save globally',
 })
 
--- vim.api.nvim_create_autocmd('VimLeavePre', {
---   desc = 'Save session on close',
---   group = vim.api.nvim_create_augroup('resession_auto_save', { clear = true }),
---   callback = function()
---     local save = require('resession').save
---     save('Last Session', { notify = false })
---     save(vim.fn.getcwd(), { dir = 'dirsession', notify = false })
---   end,
--- })
+vim.api.nvim_create_autocmd('VimLeavePre', {
+  desc = 'Save session on close',
+  group = vim.api.nvim_create_augroup('custom_mini_sessions_auto_save', { clear = true }),
+  callback = function()
+    local miniSessions = require 'mini.sessions'
+    miniSessions.write(vim.fn.fnamemodify(vim.fn.getcwd(), ':t'))
+  end,
+})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -897,6 +896,11 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      local miniSessions = require 'mini.sessions'
+      miniSessions.setup {
+        autowrite = false,
+      }
+
       local miniStarter = require 'mini.starter'
       miniStarter.setup {
         items = {
@@ -905,9 +909,6 @@ require('lazy').setup({
           miniStarter.sections.builtin_actions(),
         },
       }
-
-      local miniSessions = require 'mini.sessions'
-      miniSessions.setup {}
 
       -- Better Around/Inside textobjects
       --
@@ -999,10 +1000,10 @@ require('lazy').setup({
           not_current = false,
         },
       }
-      vim.keymap.set('n', 's', function()
+      vim.keymap.set('n', '<cr>', function()
         require('mini.jump2d').start()
       end, {
-        desc = 'Fla[S]h Jump to word',
+        desc = 'Jump to word',
       })
 
       local miniMove = require 'mini.move'
