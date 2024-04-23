@@ -248,15 +248,15 @@ end, {
   desc = 'Toggle autoformat-on-save globally',
 })
 
-vim.api.nvim_create_autocmd('VimLeavePre', {
-  desc = 'Save session on close',
-  group = vim.api.nvim_create_augroup('resession_auto_save', { clear = true }),
-  callback = function()
-    local save = require('resession').save
-    save('Last Session', { notify = false })
-    save(vim.fn.getcwd(), { dir = 'dirsession', notify = false })
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimLeavePre', {
+--   desc = 'Save session on close',
+--   group = vim.api.nvim_create_augroup('resession_auto_save', { clear = true }),
+--   callback = function()
+--     local save = require('resession').save
+--     save('Last Session', { notify = false })
+--     save(vim.fn.getcwd(), { dir = 'dirsession', notify = false })
+--   end,
+-- })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
