@@ -915,6 +915,10 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
       require('mini.files').setup()
+      vim.keymap.set('n', '<leader>e', function()
+        local miniFiles = require 'mini.files'
+        miniFiles.open(vim.api.nvim_buf_get_name(0))
+      end, { desc = 'Open [E]xplorer' })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -957,10 +961,22 @@ require('lazy').setup({
         use_icons = vim.g.have_nerd_font,
       }
 
+      require('mini.bufremove').setup {}
+
       vim.keymap.set('n', 'L', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
       vim.keymap.set('n', 'H', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
-      vim.keymap.set('n', '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose Buffer' })
-      vim.keymap.set('n', '<leader>C', '<cmd>%bd|e#<cr>', { desc = '[C]lose All Buffers' })
+      vim.keymap.set('n', '<leader>c', function()
+        require('mini.bufremove').delete()
+      end, { desc = '[C]lose Buffer' })
+      vim.keymap.set('n', '<leader>C', function()
+        ---@diagnostic disable-next-line: param-type-mismatch
+        local lastBuffer = vim.fn.bufnr '$'
+        for i = 1, lastBuffer, 1 do
+          if vim.fn.buflisted(i) == 1 and vim.fn.bufwinnr(i) == -1 then
+            require('mini.bufremove').delete(i)
+          end
+        end
+      end, { desc = '[C]lose All Buffers' })
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -1162,7 +1178,7 @@ require('lazy').setup({
           ['h'] = 'actions.parent',
         },
       }
-      vim.keymap.set('n', '<leader>e', '<cmd>Oil --float<cr>', { desc = 'Open [E]xplorer' })
+      vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = 'Open [O]il' })
     end,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
