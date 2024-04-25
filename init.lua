@@ -222,10 +222,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>tf', '<cmd>ToggleBufferFormatOnSave<cr>', { desc = '[T]oggle buffer [F]ormat on save' })
 vim.keymap.set('n', '<leader>tF', '<cmd>ToggleFormatOnSave<cr>', { desc = '[T]oggle global [F]ormat on save' })
 
-vim.keymap.set('n', '<leader>g', function()
-  os.execute('open -a kitty.app -n --args lazygit -p ' .. vim.fn.getcwd())
-end, { desc = 'Open Lazy[G]it' })
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -905,10 +901,17 @@ require('lazy').setup({
         autowrite = false,
       }
 
+      vim.keymap.set('n', '<leader>S.', function()
+        local _, error = pcall(miniSessions.read, vim.fn.fnamemodify(vim.fn.getcwd(), ':t'))
+        if error ~= nil then
+          print(error)
+        end
+      end, { desc = 'Open [S]ession [.]Current Directory' })
+
       local miniStarter = require 'mini.starter'
       miniStarter.setup {
         items = {
-          miniStarter.sections.sessions(5, true),
+          miniStarter.sections.sessions(50, true),
           miniStarter.sections.recent_files(5, true, false),
           miniStarter.sections.builtin_actions(),
         },
@@ -1004,10 +1007,11 @@ require('lazy').setup({
           not_current = false,
         },
       }
-      vim.keymap.set('n', '<cr>', function()
+
+      vim.keymap.set('n', 's', function()
         require('mini.jump2d').start()
       end, {
-        desc = 'Jump to word',
+        desc = 'Fla[S]h Jump to word',
       })
 
       local miniMove = require 'mini.move'
