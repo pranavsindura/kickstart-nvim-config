@@ -53,3 +53,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>tf', '<cmd>ToggleBufferFormatOnSave<cr>', { desc = '[T]oggle buffer [F]ormat on save' })
 vim.keymap.set('n', '<leader>tF', '<cmd>ToggleFormatOnSave<cr>', { desc = '[T]oggle global [F]ormat on save' })
+
+vim.keymap.set('n', '<leader>g', '<cmd>silent!!tmux split-window -Z "lazygit -p ' .. vim.fn.getcwd() .. '"<cr>', {
+  desc = 'Open Lazy[G]it',
+})
