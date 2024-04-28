@@ -7,4 +7,3 @@ require 'custom.commands.userCommands'
 require 'custom.keymaps.common'
 
 require 'kickstart.plugins'
-require 'custom.plugins'
