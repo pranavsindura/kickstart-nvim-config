@@ -37,6 +37,7 @@ require('lazy').setup({
   require 'custom.plugins.nvim-ts-autotag',
   require 'custom.plugins.nvim-ts-context-commentstring',
   require 'custom.plugins.nvim-ufo',
+  require 'custom.plugins.vim-tmux-navigator',
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
