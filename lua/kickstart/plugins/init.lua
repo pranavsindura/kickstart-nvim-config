@@ -39,6 +39,7 @@ require('lazy').setup({
   require 'custom.plugins.nvim-ufo',
   require 'custom.plugins.vim-tmux-navigator',
   require 'custom.plugins.nvim-dap-vscode-js',
+  require 'custom.plugins.tabscope',
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',

@@ -49,9 +49,6 @@ return { -- Collection of various small independent plugins/modules
       miniFiles.open(dirPath)
     end, { desc = 'Open [E]xplorer' })
 
-    -- Simple and easy statusline.
-    --  You could remove this setup call if you don't like it,
-    --  and try some other statusline plugin
     local statusline = require 'mini.statusline'
 
     local activeContent = function()
