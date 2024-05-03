@@ -18,6 +18,8 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 require('lazy').setup({
+  require 'custom.plugins.kanagawa',
+  require 'custom.plugins.tokyonight',
   require 'custom.plugins.vim-sleuth',
   require 'custom.plugins.Comment',
   require 'custom.plugins.which-key',
@@ -25,7 +27,6 @@ require('lazy').setup({
   require 'custom.plugins.nvim-lspconfig',
   require 'custom.plugins.conform',
   require 'custom.plugins.nvim-cmp',
-  require 'custom.plugins.tokyonight',
   require 'custom.plugins.todo-comments',
   require 'custom.plugins.mini',
   require 'custom.plugins.nvim-treesitter',
@@ -39,7 +40,7 @@ require('lazy').setup({
   require 'custom.plugins.nvim-ufo',
   require 'custom.plugins.vim-tmux-navigator',
   require 'custom.plugins.nvim-dap-vscode-js',
-  require 'custom.plugins.tabscope',
+  require 'custom.plugins.scope',
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
