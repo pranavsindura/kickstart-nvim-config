@@ -3,6 +3,5 @@ return {
   lazy = false,
   config = function()
     require('transparent').setup {}
-    vim.cmd 'TransparentEnable'
   end,
 }
