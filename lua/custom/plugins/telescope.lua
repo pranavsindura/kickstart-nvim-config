@@ -52,7 +52,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         mappings = {
           i = {
             ['<c-enter>'] = 'to_fuzzy_refine',
-            ['<C-g>'] = 'select_default',
+            ['<C-y>'] = 'select_default',
             ['<C-j>'] = 'move_selection_next',
             ['<C-k>'] = 'move_selection_previous',
           },

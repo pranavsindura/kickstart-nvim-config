@@ -4,6 +4,12 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    config = function()
+      require('ibl').setup {
+        indent = {
+          char = '▏', -- This is a slightly thinner char than the default one, check :help ibl.config.indent.char
+        },
+      }
+    end,
   },
 }
