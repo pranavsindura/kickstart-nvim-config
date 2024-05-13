@@ -35,6 +35,7 @@ return { -- Autoformat
       javascriptreact = { 'prettierd' },
       typescriptreact = { 'prettierd' },
       json = { 'prettierd' },
+      jsonc = { 'prettierd' },
       markdown = { 'prettierd' },
       html = { 'prettierd' },
       cpp = { 'clang-format' },
