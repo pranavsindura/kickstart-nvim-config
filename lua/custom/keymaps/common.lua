@@ -2,6 +2,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'ESC' })
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = '[N]ew File' })
+vim.keymap.set('n', '<leader>k', '<cmd>checktime<cr>', { desc = 'Chec[K] time' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 
