@@ -9,7 +9,7 @@ return {
       config = function()
         require('diffview').setup {}
         vim.keymap.set('n', '<leader>gd', function()
-          vim.cmd 'DiffviewFileHistory %'
+          vim.cmd 'DiffviewOpen'
           vim.cmd 'DiffviewToggleFiles'
         end, { desc = 'git [d]iff file history' })
       end,
