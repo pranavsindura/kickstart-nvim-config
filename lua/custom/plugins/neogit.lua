@@ -16,7 +16,9 @@ return {
     },
   },
   config = function()
-    require('neogit').setup {}
+    require('neogit').setup {
+      auto_refresh = false,
+    }
     vim.keymap.set('n', '<leader>gg', function()
       vim.cmd 'Neogit'
     end, { desc = 'git Open Neogit' })
