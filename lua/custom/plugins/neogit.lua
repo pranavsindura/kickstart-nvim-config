@@ -18,6 +18,7 @@ return {
   config = function()
     require('neogit').setup {
       auto_refresh = false,
+      console_timeout = 5000,
       status = {
         recent_commit_count = 0,
       },
