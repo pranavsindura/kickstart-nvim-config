@@ -33,6 +33,11 @@ return {
           end
         end, { desc = 'Jump to previous git [c]hange' })
 
+        map('n', '<leader>gd', function()
+          vim.cmd 'tabnew %'
+          gitsigns.diffthis()
+        end, { desc = 'git [d]iff file' })
+
         -- Actions
         -- normal mode
         map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
