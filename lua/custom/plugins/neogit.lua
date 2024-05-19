@@ -3,15 +3,21 @@ return {
   event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim', -- required
-    'sindrets/diffview.nvim', -- optional - Diff integration
-
-    -- Only one of these is needed, not both.
     'nvim-telescope/telescope.nvim', -- optional
-    -- 'ibhagwan/fzf-lua', -- optional
+    {
+      'sindrets/diffview.nvim',
+      config = function()
+        require('diffview').setup {}
+        vim.keymap.set('n', '<leader>gd', function()
+          vim.cmd 'DiffviewFileHistory %'
+          vim.cmd 'DiffviewToggleFiles'
+        end, { desc = 'git [d]iff file history' })
+      end,
+    },
   },
   config = function()
     require('neogit').setup {}
-    vim.keymap.set('n', '<leader>hg', function()
+    vim.keymap.set('n', '<leader>gg', function()
       vim.cmd 'Neogit'
     end, { desc = 'git Open Neogit' })
   end,

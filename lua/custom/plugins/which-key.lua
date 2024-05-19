@@ -9,7 +9,7 @@ return { -- Useful plugin to show you pending keybinds.
       ['<leader>d'] = { name = '[D]ebugger', _ = 'which_key_ignore' },
       ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
       ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-      ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+      ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
       ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
       ['<leader>S'] = { name = '[S]ession', _ = 'which_key_ignore' },
       ['<leader>T'] = { name = '[T]abs', _ = 'which_key_ignore' },
