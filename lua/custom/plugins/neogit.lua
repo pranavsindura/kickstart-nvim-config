@@ -18,6 +18,9 @@ return {
   config = function()
     require('neogit').setup {
       auto_refresh = false,
+      status = {
+        recent_commit_count = 0,
+      },
     }
     vim.keymap.set('n', '<leader>gg', function()
       vim.cmd 'Neogit'
