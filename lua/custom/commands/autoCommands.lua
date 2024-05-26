@@ -17,7 +17,8 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   group = vim.api.nvim_create_augroup('custom_mini_sessions_auto_save', { clear = true }),
   callback = function()
     local miniSessions = require 'mini.sessions'
-    miniSessions.write(vim.fn.fnamemodify(vim.fn.getcwd(), ':t'))
+    local pathName = require('custom.utils.mini').getSessionPath()
+    miniSessions.write(pathName)
   end,
 })
 

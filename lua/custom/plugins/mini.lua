@@ -1,4 +1,4 @@
-return { -- Collection of various small independent plugins/modules
+return {
   'echasnovski/mini.nvim',
   config = function()
     local miniSessions = require 'mini.sessions'
@@ -6,20 +6,27 @@ return { -- Collection of various small independent plugins/modules
       autowrite = false,
     }
 
-    vim.keymap.set('n', '<leader>S.', function()
-      local _, error = pcall(miniSessions.read, vim.fn.fnamemodify(vim.fn.getcwd(), ':t'))
+    local function openCurrentDirectorySession()
+      local pathName = require('custom.utils.mini').getSessionPath()
+      local _, error = pcall(miniSessions.read, pathName)
       if error ~= nil then
-        print(error)
+        print 'no session found'
       end
-    end, { desc = 'Open [S]ession [.]Current Directory' })
+    end
+
+    vim.keymap.set('n', '<leader>S.', openCurrentDirectorySession, { desc = 'Open [S]ession [.]Current Directory' })
 
     local miniStarter = require 'mini.starter'
     miniStarter.setup {
       items = {
-        miniStarter.sections.sessions(50, true),
-        miniStarter.sections.recent_files(5, true, false),
+        {
+          name = 'Load Session (' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:~:h') .. ')',
+          action = openCurrentDirectorySession,
+          section = 'Session',
+        },
         miniStarter.sections.builtin_actions(),
       },
+      footer = '',
     }
 
     -- Better Around/Inside textobjects
