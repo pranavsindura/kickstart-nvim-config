@@ -111,17 +111,17 @@ return {
       end
     end, { desc = '[C]lose All Buffers' })
 
-    require('mini.jump2d').setup {
-      allowed_windows = {
-        not_current = false,
-      },
-    }
+    -- require('mini.jump2d').setup {
+    -- allowed_windows = {
+    -- not_current = false,
+    -- },
+    -- }
 
-    vim.keymap.set('n', 's', function()
-      require('mini.jump2d').start()
-    end, {
-      desc = 'Fla[S]h Jump to word',
-    })
+    -- vim.keymap.set('n', 's', function()
+    -- require('mini.jump2d').start()
+    -- end, {
+    -- desc = 'Fla[S]h Jump to word',
+    -- })
 
     local miniMove = require 'mini.move'
     miniMove.setup {
