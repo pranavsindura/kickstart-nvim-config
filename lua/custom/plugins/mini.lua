@@ -55,6 +55,11 @@ return {
       local filename = statusline.section_filename { trunc_width = 800 }
       local fileinfo = statusline.section_fileinfo { trunc_width = 120 }
       local search = statusline.section_searchcount { trunc_width = 75 }
+      local recordingRegister = vim.fn.reg_recording()
+      local recordingStatus = ''
+      if #recordingRegister > 0 then
+        recordingStatus = 'recording @' .. recordingRegister
+      end
 
       return statusline.combine_groups {
         { hl = mode_hl, strings = { mode } },
@@ -65,6 +70,9 @@ return {
         '%<', -- Mark general truncate point
         { hl = 'MiniStatuslineFilename', strings = { filename } },
         '%=', -- End left alignment
+        -- macro recording status
+        { hl = 'MiniStatuslineDevinfo', strings = { recordingStatus } },
+        -- file info
         { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
         {
           hl = mode_hl,
