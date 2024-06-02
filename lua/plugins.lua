@@ -43,7 +43,6 @@ require('lazy').setup({
   require 'custom.plugins.scope',
   require 'custom.plugins.tabnine-nvim',
   require 'custom.plugins.nvim-surround',
-  require 'custom.plugins.oil',
   require 'custom.plugins.flash',
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
