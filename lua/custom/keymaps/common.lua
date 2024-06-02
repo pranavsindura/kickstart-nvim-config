@@ -9,9 +9,13 @@ vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 vim.keymap.set('n', ']<space>', 'm`o<esc>``', { desc = 'Put Blank line Below' })
 vim.keymap.set('n', '[<space>', 'm`O<esc>``', { desc = 'Put Blank line Above' })
 
+vim.keymap.set('n', ']p', 'o<esc>p', { desc = 'Paste Below' })
+vim.keymap.set('n', '[p', 'O<esc>p', { desc = 'Paste Above' })
+
 vim.keymap.set('n', ']t', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
 vim.keymap.set('n', '[t', '<cmd>tabprev<cr>', { desc = 'Previous Tab' })
-vim.keymap.set('n', '<leader>Tc', '<cmd>tabclose<cr>', { desc = 'Close [T]ab [C]urrent' })
+vim.keymap.set('n', '<leader>To', '<cmd>tabnew %<cr>', { desc = '[T]ab [O]pen %' })
+vim.keymap.set('n', '<leader>Tc', '<cmd>tabclose<cr>', { desc = '[T]ab [C]lose' })
 
 vim.keymap.set('n', ']q', '<cmd>cnext<cr>', { desc = 'Next [Q]uickfix Item' })
 vim.keymap.set('n', '[q', '<cmd>cprev<cr>', { desc = 'Previous [Q]uickfix Item' })
