@@ -1,6 +1,7 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'ESC' })
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
+vim.keymap.set('n', '<leader>Q', '<cmd>qa<cr>', { desc = '[Q]uit All' })
 vim.keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = '[N]ew File' })
 vim.keymap.set('n', '<leader>k', '<cmd>checktime<cr>', { desc = 'Chec[K] time' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
@@ -59,6 +60,17 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>tf', '<cmd>ToggleBufferFormatOnSave<cr>', { desc = '[T]oggle buffer [F]ormat on save' })
 vim.keymap.set('n', '<leader>tF', '<cmd>ToggleFormatOnSave<cr>', { desc = '[T]oggle global [F]ormat on save' })
+vim.keymap.set('n', '<leader>td', function()
+  local enabledString = ''
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+  if vim.diagnostic.is_enabled() then
+    enabledString = 'enabled'
+  else
+    enabledString = 'disabled'
+  end
+
+  print('Vim Diagnostics ' .. enabledString)
+end, { desc = '[t]oggle [d]iagnostics' })
 
 vim.keymap.set('n', 'dh', function()
   local current_diffopt = vim.o.diffopt
