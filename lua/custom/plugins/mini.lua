@@ -31,23 +31,6 @@ return {
 
     require('mini.ai').setup { n_lines = 500 }
 
-    require('mini.files').setup {
-      mappings = {
-        synchronize = 'w',
-        go_in_plus = 'l',
-      },
-    }
-    vim.keymap.set('n', '<leader>e', function()
-      local miniFiles = require 'mini.files'
-      local dirPath = ''
-      if vim.fn.expand '%:t' == 'Starter' then
-        dirPath = vim.fn.expand '%:h'
-      else
-        dirPath = vim.api.nvim_buf_get_name(0)
-      end
-      miniFiles.open(dirPath)
-    end, { desc = 'Open [E]xplorer' })
-
     local statusline = require 'mini.statusline'
 
     local activeContent = function()

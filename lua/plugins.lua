@@ -43,6 +43,7 @@ require('lazy').setup({
   require 'custom.plugins.scope',
   require 'custom.plugins.codeium',
   require 'custom.plugins.floaterm',
+  require 'custom.plugins.oil',
   require 'custom.plugins.nvim-surround',
   require 'custom.plugins.flash',
   require 'custom.plugins.tint',
