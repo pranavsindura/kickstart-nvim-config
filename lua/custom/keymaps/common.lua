@@ -87,3 +87,5 @@ vim.keymap.set('n', 'dl', function()
   vim.cmd('set diffopt=' .. current_diffopt)
   vim.cmd 'diffupdate'
 end, { desc = 'Get Incoming Change' })
+
+vim.keymap.set('i', '<C-u>', function() end)

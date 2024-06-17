@@ -3,6 +3,6 @@ return {
   lazy = false,
   config = function()
     require('transparent').setup {}
-    vim.cmd 'TransparentDisable'
+    vim.keymap.set('n', '<leader>tt', '<cmd>TransparentToggle<cr>', { desc = '[T]oggle [T]ransparent' })
   end,
 }
