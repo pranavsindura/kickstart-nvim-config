@@ -1,3 +1,5 @@
+vim.cmd 'colorscheme retrobox'
+
 require 'custom.globals'
 require 'custom.options'
 
