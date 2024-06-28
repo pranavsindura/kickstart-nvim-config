@@ -1,5 +1,6 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'ESC' })
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = '[W]rite File' })
+vim.keymap.set('n', '<leader>W', '<cmd>wa<cr>', { desc = '[W]rite All Files' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<leader>Q', '<cmd>qa<cr>', { desc = '[Q]uit All' })
 vim.keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = '[N]ew File' })
