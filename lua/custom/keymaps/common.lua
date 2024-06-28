@@ -64,12 +64,12 @@ vim.keymap.set('n', '<leader>td', function()
   local enabledString = ''
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   if vim.diagnostic.is_enabled() then
-    enabledString = 'enabled'
+    enabledString = 'ENABLED'
   else
-    enabledString = 'disabled'
+    enabledString = 'DISABLED'
   end
 
-  print('Vim Diagnostics ' .. enabledString)
+  print('Vim Diagnostics: ' .. enabledString)
 end, { desc = '[t]oggle [d]iagnostics' })
 
 vim.keymap.set('n', 'dh', function()

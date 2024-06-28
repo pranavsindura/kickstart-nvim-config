@@ -65,7 +65,7 @@ vim.opt.wrap = false
 vim.opt.shell = '/bin/zsh'
 vim.opt.fillchars = { diff = '╱' }
 vim.opt.diffopt = 'internal,filler,closeoff,linematch:60,iwhite,vertical,indent-heuristic,algorithm:histogram'
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 
 -- Indentation Defaults
 vim.opt.tabstop = 2

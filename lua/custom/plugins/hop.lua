@@ -14,10 +14,6 @@ return {
       desc = 'Hop Pattern',
     })
 
-    vim.keymap.set('n', 'L', '<cmd>HopLine<cr>', {
-      desc = 'Hop Line',
-    })
-
     vim.keymap.set('', 'f', function()
       hop.hint_char1 { direction = directions.AFTER_CURSOR, current_line_only = true }
     end, { remap = true })

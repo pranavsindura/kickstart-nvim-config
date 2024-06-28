@@ -6,28 +6,21 @@ return {
       autowrite = false,
     }
 
-    local function openCurrentDirectorySession()
-      local pathName = require('custom.utils.mini').getSessionPath()
-      local _, error = pcall(miniSessions.read, pathName)
-      if error ~= nil then
-        print 'no session found'
-      end
-    end
-
+    local openCurrentDirectorySession = require('custom.utils.mini').openCurrentDirectorySession
     vim.keymap.set('n', '<leader>S.', openCurrentDirectorySession, { desc = 'Open [S]ession [.]Current Directory' })
 
-    -- local miniStarter = require 'mini.starter'
-    -- miniStarter.setup {
-    --   items = {
-    --     {
-    --       name = 'Load Session (' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:~:h') .. ')',
-    --       action = openCurrentDirectorySession,
-    --       section = 'Session',
-    --     },
-    --     miniStarter.sections.builtin_actions(),
-    --   },
-    --   footer = '',
-    -- }
+    local miniStarter = require 'mini.starter'
+    miniStarter.setup {
+      items = {
+        {
+          name = 'Load Session (' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:~:h') .. ')',
+          action = openCurrentDirectorySession,
+          section = 'Session',
+        },
+        miniStarter.sections.builtin_actions(),
+      },
+      footer = '',
+    }
 
     require('mini.ai').setup { n_lines = 500 }
 
