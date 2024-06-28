@@ -1,6 +1,7 @@
 -- "gc" to comment visual regions/lines
 return {
   'numToStr/Comment.nvim',
+  event = 'VeryLazy',
   dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
   config = function()
     vim.keymap.set('v', '<leader>/', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = 'Toggle comment for selection' })

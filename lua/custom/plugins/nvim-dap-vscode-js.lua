@@ -1,10 +1,15 @@
 return {
   'mxsdev/nvim-dap-vscode-js',
+  event = 'VeryLazy',
   dependencies = {
-    'mfussenegger/nvim-dap',
+    {
+      'mfussenegger/nvim-dap',
+      event = 'VeryLazy',
+    },
     {
       'microsoft/vscode-js-debug',
       build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
+      event = 'VeryLazy',
     },
   },
   config = function()
