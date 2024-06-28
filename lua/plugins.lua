@@ -22,7 +22,7 @@ require('lazy').setup({
   require 'custom.plugins.gruvbox',
   require 'custom.plugins.vim-sleuth',
   require 'custom.plugins.Comment',
-  -- require 'custom.plugins.which-key',
+  require 'custom.plugins.which-key',
   require 'custom.plugins.telescope',
   require 'custom.plugins.nvim-lspconfig',
   require 'custom.plugins.conform',
