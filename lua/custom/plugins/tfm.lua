@@ -41,7 +41,7 @@ return {
     {
       '<leader>e',
       ':Tfm<CR>',
-      desc = 'TFM',
+      desc = 'Open [E]xplorer',
     },
     -- {
     --   '<leader>mh',
