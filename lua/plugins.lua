@@ -18,7 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 require('lazy').setup({
-  -- require 'custom.plugins.tokyonight',
+  require 'custom.plugins.tokyonight',
   require 'custom.plugins.gruvbox',
   require 'custom.plugins.vim-sleuth',
   require 'custom.plugins.Comment',
