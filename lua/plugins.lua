@@ -34,7 +34,7 @@ require('lazy').setup({
   require 'custom.plugins.vim-fugitive',
   require 'custom.plugins.text-case',
   require 'custom.plugins.lsp_signature',
-  -- require 'custom.plugins.transparent',
+  require 'custom.plugins.transparent',
   require 'custom.plugins.nvim-ts-autotag',
   require 'custom.plugins.nvim-ts-context-commentstring',
   require 'custom.plugins.nvim-ufo',
