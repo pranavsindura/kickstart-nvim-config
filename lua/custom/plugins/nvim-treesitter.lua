@@ -3,9 +3,9 @@ return { -- Highlight, edit, and navigate code
   event = 'VeryLazy',
   build = ':TSUpdate',
   dependencies = {
-    {
-      'nvim-treesitter/nvim-treesitter-context',
-    },
+    -- {
+    --   'nvim-treesitter/nvim-treesitter-context',
+    -- },
     {
       'nvim-treesitter/nvim-treesitter-textobjects',
       config = function()
