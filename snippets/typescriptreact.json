@@ -1,6 +1,6 @@
 {
   "React Native Functional Component": {
-    "prefix": "xrnfc",
+    "prefix": "rnfc",
     "body": [
       "import React from 'react';",
       "",
@@ -16,7 +16,7 @@
     "description": "Create React Native Functional Component"
   },
   "React Native Functional Component + Redux": {
-    "prefix": "xrnfcr",
+    "prefix": "rnfcr",
     "body": [
       "import React from 'react';",
       "import { ConnectedProps, connect } from 'react-redux';",
@@ -40,17 +40,20 @@
     "description": "Create React Native Functional Component + Redux"
   },
   "Destructure Object": {
-    "prefix": "xdo",
-    "body": [
-      "const {\n} = $1;"
-    ],
+    "prefix": "do",
+    "body": ["const {$2} = $1;"],
     "description": "Destructure an Object"
   },
   "Destructure Array": {
-    "prefix": "xda",
-    "body": [
-      "const [\n] = $1;"
-    ],
+    "prefix": "da",
+    "body": ["const [$2] = $1;"],
     "description": "Destructure an Array"
+  },
+  "Next.js React Functional Component": {
+    "prefix": "nxfc",
+    "body": [
+      "interface Props {}",
+      "export default function $1(_props: Props) {$2}"
+    ]
   }
 }
