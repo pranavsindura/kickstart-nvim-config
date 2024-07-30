@@ -52,9 +52,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
         mappings = {
           i = {
             ['<c-enter>'] = 'to_fuzzy_refine',
-            ['<C-y>'] = 'select_default',
-            ['<C-j>'] = 'move_selection_next',
-            ['<C-k>'] = 'move_selection_previous',
+            ['<c-y>'] = 'select_default',
+            ['<c-n>'] = 'move_selection_next',
+            ['<c-p>'] = 'move_selection_previous',
           },
         },
         git_worktrees = vim.g.git_worktrees,
@@ -91,14 +91,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
         no_ignore = true,
       }
     end, { desc = '[F]ind all [F]iles' })
-    vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
+    -- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
     vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = '[F]ind [C]urrent Word' })
     vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind [W]ord' })
     vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
     vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
-    vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+    -- vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>f/', builtin.current_buffer_fuzzy_find, { desc = '[F]ind in [/] current buffer' })
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
+    -- vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
 
     -- Slightly advanced example of overriding default behavior and theme
     -- vim.keymap.set('n', '<leader>f/', function()
@@ -119,8 +119,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- end, { desc = '[F]ind [/] in Open Files' })
 
     -- Shortcut for searching your Neovim configuration files
-    vim.keymap.set('n', '<leader>fn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
-    end, { desc = '[F]ind [N]eovim files' })
+    -- vim.keymap.set('n', '<leader>fn', function()
+    -- builtin.find_files { cwd = vim.fn.stdpath 'config' }
+    -- end, { desc = '[F]ind [N]eovim files' })
   end,
 }

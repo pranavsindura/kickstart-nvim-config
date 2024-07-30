@@ -17,7 +17,6 @@ return {
           action = openCurrentDirectorySession,
           section = 'Session',
         },
-        miniStarter.sections.builtin_actions(),
       },
       footer = '',
     }
@@ -33,10 +32,10 @@ return {
       local fileinfo = statusline.section_fileinfo { trunc_width = 120 }
       local search = statusline.section_searchcount { trunc_width = 75 }
       local recordingRegister = vim.fn.reg_recording()
-      local recordingStatus = ''
-      if #recordingRegister > 0 then
-        recordingStatus = 'recording @' .. recordingRegister
-      end
+      -- local recordingStatus = ''
+      -- if #recordingRegister > 0 then
+      -- recordingStatus = 'recording @' .. recordingRegister
+      -- end
 
       return statusline.combine_groups {
         { hl = mode_hl, strings = { mode } },
@@ -48,9 +47,9 @@ return {
         { hl = 'MiniStatuslineFilename', strings = { filename } },
         '%=', -- End left alignment
         -- macro recording status
-        { hl = 'MiniStatuslineDevinfo', strings = { recordingStatus } },
+        -- { hl = 'MiniStatuslineDevinfo', strings = { recordingStatus } },
         -- file info
-        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+        -- { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
         {
           hl = mode_hl,
           strings = { search },
@@ -70,22 +69,22 @@ return {
     --   use_icons = vim.g.have_nerd_font,
     -- }
 
-    require('mini.bufremove').setup {}
+    -- require('mini.bufremove').setup {}
 
     -- vim.keymap.set('n', 'L', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
     -- vim.keymap.set('n', 'H', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
-    vim.keymap.set('n', '<leader>c', function()
-      require('mini.bufremove').delete()
-    end, { desc = '[C]lose Buffer' })
-    vim.keymap.set('n', '<leader>C', function()
-      ---@diagnostic disable-next-line: param-type-mismatch
-      local lastBuffer = vim.fn.bufnr '$'
-      for i = 1, lastBuffer, 1 do
-        if vim.fn.buflisted(i) == 1 and vim.fn.bufwinnr(i) == -1 then
-          require('mini.bufremove').delete(i)
-        end
-      end
-    end, { desc = '[C]lose All Buffers' })
+    -- vim.keymap.set('n', '<leader>c', function()
+    --   require('mini.bufremove').delete()
+    -- end, { desc = '[C]lose Buffer' })
+    -- vim.keymap.set('n', '<leader>C', function()
+    --   ---@diagnostic disable-next-line: param-type-mismatch
+    --   local lastBuffer = vim.fn.bufnr '$'
+    --   for i = 1, lastBuffer, 1 do
+    --     if vim.fn.buflisted(i) == 1 and vim.fn.bufwinnr(i) == -1 then
+    --       require('mini.bufremove').delete(i)
+    --     end
+    --   end
+    -- end, { desc = '[C]lose All Buffers' })
 
     local miniMove = require 'mini.move'
     miniMove.setup {
