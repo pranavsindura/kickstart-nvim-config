@@ -49,7 +49,7 @@ return {
         -- macro recording status
         -- { hl = 'MiniStatuslineDevinfo', strings = { recordingStatus } },
         -- file info
-        -- { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
         {
           hl = mode_hl,
           strings = { search },
