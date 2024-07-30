@@ -71,3 +71,5 @@ vim.opt.diffopt = 'internal,filler,closeoff,linematch:60,iwhite,vertical,indent-
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+
+vim.opt.termguicolors = true
