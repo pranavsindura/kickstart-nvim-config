@@ -21,6 +21,7 @@ require('lazy').setup({
   require 'custom.plugins.gruvbox',
   require 'custom.plugins.sonokai',
   require 'custom.plugins.lush',
+  require 'custom.plugins.obsidian',
   -- require 'custom.plugins.vaporeon',
   require 'custom.plugins.vim-sleuth',
   require 'custom.plugins.Comment',
